@@ -1,13 +1,13 @@
 <header>
-	<h1>SABER MODELS</h1>
+	<h1>SABER METRICS</h1>
 </header>
 <main>
 	<section class="sm-app-section">
 		<nav>
 			<ul>
 				<li>DASHBOARD</li>
-				<li>MODELS</li>
-				<li>RELATIONS</li>
+				<li>METRICS</li>
+				<li>REPORTS</li>
 				<li>SETTINGS</li>
 			</ul>
 		</nav>
