@@ -38,6 +38,9 @@ class Plugin {
 		  );
 		});
 
+		// Admin scripts.
+		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
+
 	}
 
 	// Define the function that will create the menu page
@@ -56,6 +59,10 @@ class Plugin {
 		global $wpdb;
 		$results = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}metric ORDER BY id DESC LIMIT 10");
 		return $results;
+	}
+
+	public function admin_scripts() {
+		wp_enqueue_script( 'saber-metrics-main', SABER_METRICS_URL . '/js/main.js', array( 'jquery' ), '1.0.3', true );
 	}
 
 }
