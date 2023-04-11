@@ -16,6 +16,7 @@
 		<thead>
 			<th>ID</th>
 			<th>Value</th>
+			<th>Created</th>
 			<th></th>
 		</thead>
 		<tbody>
@@ -27,6 +28,7 @@
 				<tr id="metric-log-row-<?php echo $result->id; ?>">
 					<td class="metric-log-id"><?php echo $result->id; ?></td>
 					<td class="metric-log-value"><?php echo $result->value; ?></td>
+					<td class="metric-log-created"><?php echo $result->created; ?></td>
 					<td>
 						<button class="sm-table-button row-edit" data-id="<?php echo $result->id; ?>">EDIT</button>
 						<button class="sm-table-button row-delete" data-id="<?php echo $result->id; ?>">DELETE</button>

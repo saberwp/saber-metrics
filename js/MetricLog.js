@@ -90,6 +90,7 @@ class MetricLog {
 	  var newRow = '<tr id="metric-log-row-' + data.id + '">' +
 	                 '<td class="metric-id">' + data.id + '</td>' +
 	                 '<td class="metric-title">' + data.data.value + '</td>' +
+									 '<td class="metric-created">' + data.data.created + '</td>' +
 	                 '<td>' +
 	                   '<button class="row-edit" data-id="' + data.id + '">EDIT</button>' +
 	                   '<button class="row-delete" data-id="' + data.id + '">DELETE</button>' +
