@@ -1,8 +1,10 @@
 class MetricLog {
 
 	init() {
-	  // Other initialization code here
+
+	  // Initialization events.
 		this.editStart()
+		this.deleteStart()
 
 	  // Form #metric-log-save-form submit.
 	  jQuery('#metric-log-save-form').submit(function(event) {
@@ -30,6 +32,40 @@ class MetricLog {
 	      }
 	    });
 	  });
+	}
+
+	deleteStart() {
+
+		// jQuery click handler for .row-delete
+		jQuery('#metric-log-table .row-delete').click(function() {
+		  var id = jQuery(this).data('id'); // Get the ID from the data-id attribute
+		  var confirmation = confirm('Are you sure you want to delete this item?'); // Show a confirmation dialog
+
+		  if (confirmation) {
+		    // Send an AJAX request to delete the item
+		    jQuery.ajax({
+		      url: ajaxurl,
+		      method: 'POST',
+		      data: {
+		        action: 'metric_log_delete',
+		        id: id
+		      },
+		      success: function(response) {
+		        console.log('Item deleted successfully!');
+		        console.log(response); // Output the response to the console for testing
+						// Fade out the table row with the matching ID
+				    var rowId = 'metric-log-row-' + response.id;
+				    jQuery('#' + rowId).fadeOut(500, function() {
+				      jQuery(this).remove();
+				    });
+		      },
+		      error: function(xhr, status, error) {
+		        console.log('Error deleting item: ' + error);
+		      }
+		    });
+		  }
+		});
+
 	}
 
 	editStart() {
