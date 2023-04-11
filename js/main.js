@@ -1,5 +1,5 @@
-// Form model-save submit.
-jQuery('#model-save').submit(function(event) {
+// Form #metric-save-form submit.
+jQuery('#metric-save-form').submit(function(event) {
   event.preventDefault(); // Block the default form submission
   var data = {}; // Initialize an empty object to store the form data
   data.name = jQuery('#field-name').val();

@@ -12,8 +12,10 @@
 			</ul>
 		</nav>
 	</section>
-	<section>
-		<form id="model-save">
+
+	<!-- Metric save form and table. -->
+	<section id="metric-section">
+		<form id="metric-save-form">
 			<input id="field-id" type="hidden" value="0">
 			<div class="sm-field-group">
 				<label for="field-title">Title</label>
@@ -45,27 +47,26 @@
 			</thead>
 			<tbody>
 				<?php
-					$results = \SaberMetrics\Plugin::fetch_metrics();
-					foreach ($results as $result) {
-
+					$results = \SaberMetrics\Metric::fetch();
+					if( ! empty( $results )) {
+						foreach ($results as $result) {
 				?>
-
-				<tr id="metric-row-<?php echo $result->id; ?>">
-					<td class="metric-id"><?php echo $result->id; ?></td>
-					<td class="metric-title"><?php echo $result->title; ?></td>
-					<td>
-						<button class="sm-table-button row-edit" data-id="<?php echo $result->id; ?>">EDIT</button>
-						<button class="sm-table-button row-delete" data-id="<?php echo $result->id; ?>">DELETE</button>
-					</td>
-				</tr>
-
+					<tr id="metric-row-<?php echo $result->id; ?>">
+						<td class="metric-id"><?php echo $result->id; ?></td>
+						<td class="metric-title"><?php echo $result->title; ?></td>
+						<td>
+							<button class="sm-table-button row-edit" data-id="<?php echo $result->id; ?>">EDIT</button>
+							<button class="sm-table-button row-delete" data-id="<?php echo $result->id; ?>">DELETE</button>
+						</td>
+					</tr>
 				<?php
-
-					}
+					} }
 				?>
-
 			</tbody>
 		</table>
 
 	</section>
+
+	<?php require_once(SABER_METRICS_PATH . '/templates/section-metric-log.php'); ?>
+
 </main>

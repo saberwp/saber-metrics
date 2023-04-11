@@ -20,6 +20,7 @@ class Plugin {
 
 		require_once(SABER_METRICS_PATH . '/inc/Database.php');
 		require_once(SABER_METRICS_PATH . '/inc/Metric.php');
+		require_once(SABER_METRICS_PATH . '/inc/MetricLog.php');
 
 		// Metric init.
 		$metric = new Metric();
@@ -51,17 +52,9 @@ class Plugin {
 	}
 
 	public function activate() {
-
 		$database = new \SaberMetrics\Database;
 		$database->install();
-
   }
-
-	public static function fetch_metrics() {
-		global $wpdb;
-		$results = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}metric ORDER BY id DESC LIMIT 10");
-		return $results;
-	}
 
 	public function admin_scripts() {
 		wp_enqueue_style( 'saber-metrics-main', SABER_METRICS_URL . '/css/main.css', array(), '1.0.0', 'all' );

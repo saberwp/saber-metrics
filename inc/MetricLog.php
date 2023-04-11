@@ -83,27 +83,31 @@ class MetricLog {
 
 		}
 
-		private function update( $data ) {
+	private function update( $data ) {
 
-			global $wpdb;
+		global $wpdb;
 
-			// Insert the data into the database
-	    $wpdb->update(
-	      $wpdb->prefix . 'metric_log',
-	      array(
-					'value' => $data['value'],
-	      ),
-				array(
-					'id' => $data['id'],
-				),
-	      array('%d'),
-				array('%d')
-	    );
+		// Insert the data into the database
+    $wpdb->update(
+      $wpdb->prefix . 'metric_log',
+      array(
+				'value' => $data['value'],
+      ),
+			array(
+				'id' => $data['id'],
+			),
+      array('%d'),
+			array('%d')
+    );
 
-	    // Return the ID of the new metric
-			return $data['id'];
+    // Return the ID of the new metric
+		return $data['id'];
+	}
 
-		}
-
+	public static function fetch() {
+		global $wpdb;
+		$results = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}metric_log ORDER BY id DESC LIMIT 10");
+		return $results;
+	}
 
 }
