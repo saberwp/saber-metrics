@@ -35,6 +35,7 @@ class MetricLog {
 			'code'    => 200,
       'message' => $msg,
       'data'    => $data,
+			'row'			=> $this->fetch_one( $id ),
 			'id'      => $id
     );
     wp_send_json_success($response_data);
@@ -74,6 +75,7 @@ class MetricLog {
 	    $wpdb->insert(
 	      $wpdb->prefix . 'metric_log',
 	      array(
+					'metric_id' => $data['metric_id'],
 					'value' => $data['value'],
 	      ),
 	      array('%d')
@@ -93,6 +95,7 @@ class MetricLog {
     $wpdb->update(
       $wpdb->prefix . 'metric_log',
       array(
+				'metric_id' => $data['metric_id'],
 				'value' => $data['value'],
       ),
 			array(
@@ -102,7 +105,7 @@ class MetricLog {
 			array('%d')
     );
 
-    // Return the ID of the new metric
+    // Return the ID of the updated metric
 		return $data['id'];
 	}
 
@@ -111,5 +114,17 @@ class MetricLog {
 		$results = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}metric_log ORDER BY id DESC LIMIT 10");
 		return $results;
 	}
+
+	public function fetch_one( $id ) {
+	  global $wpdb;
+	  $table_name = $wpdb->prefix . 'metric_log';
+	  $row = $wpdb->get_row(
+      $wpdb->prepare(
+        "SELECT * FROM $table_name WHERE id = %d",
+        $id
+      ),
+	  );
+	  return $row;
+  }
 
 }

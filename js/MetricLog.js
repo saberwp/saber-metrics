@@ -11,6 +11,7 @@ class MetricLog {
 	    event.preventDefault(); // Block the default form submission
 	    var data = {}; // Initialize an empty object to store the form data
 	    data.value = jQuery('#metric-log-save-form #field-value').val();
+			data.metric_id = jQuery('#metric-log-save-form #field-metric-id').val();
 	    data.id = jQuery('#metric-log-save-form #field-id').val();
 	    console.log(data); // Output the data to the console for testing
 
@@ -88,9 +89,10 @@ class MetricLog {
 
 	addMetricLogRow(data) {
 	  var newRow = '<tr id="metric-log-row-' + data.id + '">' +
-	                 '<td class="metric-id">' + data.id + '</td>' +
-	                 '<td class="metric-title">' + data.data.value + '</td>' +
-									 '<td class="metric-created">' + data.data.created + '</td>' +
+	                 '<td class="metric-log-id">' + data.id + '</td>' +
+	                 '<td class="metric-log-value">' + data.row.value + '</td>' +
+									 '<td class="metric-log-metric-id">' + data.row.metric_id + '</td>' +
+									 '<td class="metric-log-created">' + data.row.created + '</td>' +
 	                 '<td>' +
 	                   '<button class="row-edit" data-id="' + data.id + '">EDIT</button>' +
 	                   '<button class="row-delete" data-id="' + data.id + '">DELETE</button>' +
