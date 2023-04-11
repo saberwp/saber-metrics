@@ -42,6 +42,7 @@ class Database {
 		$sql = "CREATE TABLE $table_name (
 			id mediumint(9) NOT NULL AUTO_INCREMENT,
 			metric_id mediumint(9) NOT NULL,
+			value mediumint(9) NOT NULL,
 			time_period varchar(10) NULL,
 			date_start datetime NULL,
 			date_end datetime NULL,
