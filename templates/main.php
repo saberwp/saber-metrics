@@ -16,12 +16,20 @@
 		<form id="model-save">
 			<input id="field-id" type="hidden" value="0">
 			<div class="sm-field-group">
-				<label for="field-name">Name</label>
-				<input id="field-name" type="text">
-			</div>
-			<div class="sm-field-group">
 				<label for="field-title">Title</label>
 				<input id="field-title" type="text">
+			</div>
+			<div class="sm-field-group">
+				<label for="field-prefix">Prefix</label>
+				<input id="field-prefix" type="text">
+			</div>
+			<div class="sm-field-group">
+				<label for="field-append">Append</label>
+				<input id="field-append" type="text">
+			</div>
+			<div class="sm-field-group">
+				<label for="field-rounding">Rounding</label>
+				<input id="field-rounding" type="number" value="0">
 			</div>
 			<div class="sm-field-group">
 				<input type="submit" value="SAVE" />
@@ -32,7 +40,6 @@
 		<table id="metric-table">
 			<thead>
 				<th>ID</th>
-				<th>Name</th>
 				<th>Title</th>
 				<th></th>
 			</thead>
@@ -45,8 +52,7 @@
 
 				<tr id="metric-row-<?php echo $result->id; ?>">
 					<td class="metric-id"><?php echo $result->id; ?></td>
-					<td class="metric-title"><?php echo $result->name; ?></td>
-					<td class="metric-name"><?php echo $result->title; ?></td>
+					<td class="metric-title"><?php echo $result->title; ?></td>
 					<td>
 						<button class="row-edit" data-id="<?php echo $result->id; ?>">EDIT</button>
 						<button class="row-delete" data-id="<?php echo $result->id; ?>">DELETE</button>
@@ -176,7 +182,6 @@ jQuery('.row-delete').click(function() {
 jQuery('.row-edit').click(function() {
   var id = jQuery(this).data('id'); // Get the ID from the data-id attribute
   var title = jQuery('#metric-row-' + id + ' .metric-title').text(); // Get the title from the metric row
-  var name = jQuery('#metric-row-' + id + ' .metric-name').text(); // Get the name from the metric row
 
   // Set the form fields with the edit data
   jQuery('#field-id').val(id);
@@ -188,7 +193,6 @@ function addMetricRow(data) {
   var newRow = '<tr id="metric-row-' + data.id + '">' +
                  '<td class="metric-id">' + data.id + '</td>' +
                  '<td class="metric-title">' + data.title + '</td>' +
-                 '<td class="metric-name">' + data.name + '</td>' +
                  '<td>' +
                    '<button class="row-edit" data-id="' + data.id + '">EDIT</button>' +
                    '<button class="row-delete" data-id="' + data.id + '">DELETE</button>' +

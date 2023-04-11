@@ -2,7 +2,7 @@
 
 /*
  * Plugin Name: Saber Metrics
- * Version: 1.0.2
+ * Version: 1.0.3
  */
 
 
@@ -63,13 +63,12 @@ class Plugin {
     $wpdb->insert(
       $wpdb->prefix . 'metric',
       array(
-        'name' => $data['name'],
 				'title' => $data['title'],
-        //'prefix' => $data['prefix'],
-        //'append' => $data['append'],
-        //'rounding' => $data['rounding']
+        'prefix' => $data['prefix'],
+        'append' => $data['append'],
+        'rounding' => $data['rounding']
       ),
-      array('%s', '%s')
+      array('%s', '%s', '%s', '%d')
     );
 
     // Get the ID of the new metric
@@ -88,41 +87,33 @@ class Plugin {
 
 	public function metric_delete_ajax() {
     global $wpdb;
-
     $id = isset( $_POST['id'] ) ? intval( $_POST['id'] ) : 0;
-
       if ( $id ) {
         $table_name = $wpdb->prefix . 'metric';
         $result = $wpdb->delete( $table_name, array( 'id' => $id ) );
 
         if ( $result ) {
-            $response = array(
-                'success' => true,
-                'id' => $id,
-                'message' => 'Item deleted successfully!'
-            );
-          } else {
-            $response = array(
-                'success' => false,
-                'id' => $id,
-                'message' => 'Error deleting item!'
-            );
+          $response = array(
+            'success' => true,
+            'id' => $id,
+            'message' => 'Metric deleted successfully!'
+          );
+        } else {
+          $response = array(
+            'success' => false,
+            'id' => $id,
+            'message' => 'Error deleting metric!'
+          );
         }
-
         wp_send_json( $response );
       }
-
       wp_die();
     }
 
 	public static function fetch_metrics() {
-
 		global $wpdb;
-
 		$results = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}metric ORDER BY id DESC LIMIT 10");
-
 		return $results;
-
 	}
 
 }

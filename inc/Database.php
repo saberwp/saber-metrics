@@ -6,7 +6,7 @@ class Database {
 
 	public function install() {
 
-
+		$this->metrics_table();
 
 	}
 
