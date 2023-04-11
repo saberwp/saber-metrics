@@ -13,6 +13,7 @@ namespace SaberMetrics;
 
 define('SABER_METRICS_PATH', \plugin_dir_path(__FILE__));
 define('SABER_METRICS_URL', \plugin_dir_url(__FILE__));
+define('SABER_METRICS_VERSION', '1.0.5');
 
 class Plugin {
 
@@ -25,6 +26,10 @@ class Plugin {
 		// Metric init.
 		$metric = new Metric();
 		$metric->init();
+
+		// Metric log init.
+		$metric_log = new MetricLog();
+		$metric_log->init();
 
 		// Plugin activation hook.
 		register_activation_hook( __FILE__, array( $this, 'activate' ) );
@@ -57,8 +62,9 @@ class Plugin {
   }
 
 	public function admin_scripts() {
-		wp_enqueue_style( 'saber-metrics-main', SABER_METRICS_URL . '/css/main.css', array(), '1.0.0', 'all' );
-		wp_enqueue_script( 'saber-metrics-main', SABER_METRICS_URL . '/js/main.js', array( 'jquery' ), '1.0.3', true );
+		wp_enqueue_style( 'saber-metrics-main', SABER_METRICS_URL . '/css/main.css', array(), SABER_METRICS_VERSION, 'all' );
+		wp_enqueue_script( 'saber-metrics-main', SABER_METRICS_URL . '/js/main.js', array( 'jquery' ), SABER_METRICS_VERSION, true );
+		wp_enqueue_script( 'saber-metrics-metric-log', SABER_METRICS_URL . '/js/MetricLog.js', array( 'jquery' ), SABER_METRICS_VERSION, true );
 	}
 
 }

@@ -22,16 +22,18 @@ class MetricLog {
 
 		// Run insert or update if ID is not 0.
 		if( (int) $data['id'] === 0 ) {
-			$id = $this->create($data);
+			$id  = $this->create($data);
+			$msg = 'Created successfully.';
 		} else {
-			$id = $this->update($data);
+			$id  = $this->update($data);
+			$msg = 'Updated successfully.';
 		}
 
 
 		// Send a JSON response using wp_send_json_success()
     $response_data = array(
 			'code'    => 200,
-      'message' => 'Data saved successfully!',
+      'message' => $msg,
       'data'    => $data,
 			'id'      => $id
     );
