@@ -54,8 +54,8 @@
 					<td class="metric-id"><?php echo $result->id; ?></td>
 					<td class="metric-title"><?php echo $result->title; ?></td>
 					<td>
-						<button class="row-edit" data-id="<?php echo $result->id; ?>">EDIT</button>
-						<button class="row-delete" data-id="<?php echo $result->id; ?>">DELETE</button>
+						<button class="sm-table-button row-edit" data-id="<?php echo $result->id; ?>">EDIT</button>
+						<button class="sm-table-button row-delete" data-id="<?php echo $result->id; ?>">DELETE</button>
 					</td>
 				</tr>
 
@@ -69,49 +69,3 @@
 
 	</section>
 </main>
-
-<style>
-
-main {
-	display: flex;
-	gap: 1rem;
-}
-
-.sm-field-group {
-	margin: 0 0 1rem 0;
-}
-
-.sm-field-group label {
-	display: block;
-	margin: 0 0 3px 0;
-}
-
-
-
-nav {
-	background-color: #F2F2F2;
-	padding: 1rem;
-	min-width: 12rem;
-}
-
-nav li:first-child {
-	border-top: solid 1px #CCC;
-}
-
-nav li {
-	cursor: pointer;
-	padding: 0.5rem 0.5rem 0.5rem 0.5rem;
-	margin: 0 0 0 0;
-	border-bottom: solid 1px #CCC;
-}
-
-nav li:hover {
-	background-color: #BBB;
-	color: #FFF;
-}
-
-input[type=submit] {
-	cursor: pointer;
-}
-
-</style>

@@ -2,7 +2,7 @@
 
 /*
  * Plugin Name: Saber Metrics
- * Version: 1.0.3
+ * Version: 1.0.4
  */
 
 
@@ -62,6 +62,7 @@ class Plugin {
 	}
 
 	public function admin_scripts() {
+		wp_enqueue_style( 'saber-metrics-main', SABER_METRICS_URL . '/css/main.css', array(), '1.0.0', 'all' );
 		wp_enqueue_script( 'saber-metrics-main', SABER_METRICS_URL . '/js/main.js', array( 'jquery' ), '1.0.3', true );
 	}
 
