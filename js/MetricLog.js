@@ -2,13 +2,14 @@ class MetricLog {
 
 	init() {
 	  // Other initialization code here
+		this.editStart()
 
 	  // Form #metric-log-save-form submit.
 	  jQuery('#metric-log-save-form').submit(function(event) {
 	    event.preventDefault(); // Block the default form submission
 	    var data = {}; // Initialize an empty object to store the form data
-	    data.value = jQuery('#field-value').val();
-	    data.id = jQuery('#field-id').val();
+	    data.value = jQuery('#metric-log-save-form #field-value').val();
+	    data.id = jQuery('#metric-log-save-form #field-id').val();
 	    console.log(data); // Output the data to the console for testing
 
 	    // Send the data to the server using AJAX
@@ -29,6 +30,24 @@ class MetricLog {
 	      }
 	    });
 	  });
+	}
+
+	editStart() {
+
+		// jQuery click handler for .row-edit
+		jQuery('#metric-log-table .row-edit').click(function() {
+			console.log('yup edit start...')
+		  var id    = jQuery(this).data('id'); // Get the ID from the data-id attribute
+		  var value = jQuery('#metric-log-row-' + id + ' .metric-log-value').text(); // Get the title from the metric row
+
+			console.log(id)
+			console.log(value)
+
+		  // Set the form fields with the edit data
+		  jQuery('#metric-log-save-form #field-id').val(id);
+		  jQuery('#metric-log-save-form #field-value').val(value);
+		});
+
 	}
 
 	addMetricLogRow(data) {

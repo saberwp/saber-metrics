@@ -29,7 +29,7 @@ jQuery('#metric-save-form').submit(function(event) {
 
 // Metric delete.
 // jQuery click handler for .row-delete
-jQuery('.row-delete').click(function() {
+jQuery('#metric-table .row-delete').click(function() {
   var id = jQuery(this).data('id'); // Get the ID from the data-id attribute
   var confirmation = confirm('Are you sure you want to delete this item?'); // Show a confirmation dialog
 
@@ -59,7 +59,7 @@ jQuery('.row-delete').click(function() {
 });
 
 // jQuery click handler for .row-edit
-jQuery('.row-edit').click(function() {
+jQuery('#metric-table .row-edit').click(function() {
   var id = jQuery(this).data('id'); // Get the ID from the data-id attribute
   var title = jQuery('#metric-row-' + id + ' .metric-title').text(); // Get the title from the metric row
 
