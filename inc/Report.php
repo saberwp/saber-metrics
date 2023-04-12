@@ -21,11 +21,16 @@ class Report {
 		// Fetch metric logs.
 		$metric_logs = MetricLog::fetch_filtered( $data['metric_id'], date('Y-m-d') );
 
+		// Grouped experiment.
+		$ml = new \SaberMetrics\MetricLog;
+		$grouped = $ml->fetch_grouped($data['metric_id'], 'daily', '2023-04-10', '2023-04-13');
+
 		// Send a JSON response using wp_send_json_success()
     $response_data = array(
-			'code'  => 200,
-			'data'  => $data,
-			'logs'  => $metric_logs,
+			'code'    => 200,
+			'data'    => $data,
+			'logs'    => $metric_logs,
+			'grouped' => $grouped,
     );
     wp_send_json_success($response_data);
 

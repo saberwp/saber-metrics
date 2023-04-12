@@ -2,13 +2,11 @@ class Reports {
 
 	init() {
 
-		const metricId = jQuery('#field-metric-id').val()
-
-		// Fetch report data for today's date.
-		this.fetch( metricId )
+		// Refresh report with current filters.
+		this.refresh()
 
 		// Setup change event.
-		this.filterInitMetric();
+		this.filterInit();
 
 	}
 
@@ -18,18 +16,22 @@ class Reports {
 	 *
 	 * @return void
 	 */
-	filterInitMetric() {
-	  const metricSelect = jQuery('#sm-report-filter-metric');
+	filterInit() {
+		const metricSelect = jQuery('#sm-report-filter-metric');
+		const periodSelect = jQuery('#sm-report-filter-time-period');
+		const groupingSelect = jQuery('#sm-report-filter-grouping');
 
-	  metricSelect.on('change', () => {
-			console.log('metric changed...')
-	    const metricId = metricSelect.val();
-	    this.fetch(metricId);
-	  });
+		const handleChange = () => {
+		this.refresh()
+		}
+
+		metricSelect.on('change', handleChange);
+		periodSelect.on('change', handleChange);
+		groupingSelect.on('change', handleChange);
 	}
 
-
-	fetch( metricId ) {
+	// Refresh the report with current filters applied.
+	refresh() {
 
 		// Clear stats.
 		this.statsClear()
@@ -37,13 +39,23 @@ class Reports {
 		// Clear reports.
 		this.reportClear()
 
+		const metricId   = jQuery('#sm-report-filter-metric').val()
+		const timePeriod = jQuery('#sm-report-filter-time-period').val()
+		const grouping   = jQuery('#sm-report-filter-grouping').val()
+		this.fetch(metricId, timePeriod, grouping);
+	}
+
+	fetch( metricId, timePeriod, grouping ) {
+
 		jQuery.ajax({
 		  type: 'POST',
 		  url: ajaxurl,
 		  data: {
 		    action: 'metric_report_data_fetch',
 		    data: {
-					metric_id: metricId // Replace with the metric ID you want to fetch data for
+					metric_id: metricId,
+					time_period: timePeriod,
+					grouping: grouping
 				}
 		  },
 		  success: function(response) {
@@ -92,42 +104,71 @@ class Reports {
 
 	render( data ) {
 
+		// Clear stats.
+		this.statsClear()
+
+		// Clear reports.
+		this.reportClear()
+
+		// Get logs.
 		const logs = data.logs
+		const groups = data.grouped
 		const figures = this.calculate( logs )
 
 		// Use stat <template> markup to create the stats.
-
 		const statComponent = jQuery('#sm-stat-component').get(0).content.cloneNode(true);
 		const targetContainer = jQuery('.sm-stats-row');
-
 		this.renderCountStat( figures, statComponent, targetContainer )
 		this.renderTotalStat( figures, statComponent, targetContainer )
 		this.renderAverageStat( figures, statComponent, targetContainer )
 
 		// Init the chart report with the labels and data created from the return results.
-
-		const chartData = this.chartDataParse(logs)
-		console.log(chartData)
-
-		const reportChart = new ReportChart(chartData.labels, chartData.data);
-		reportChart.renderChart();
+		if( groups !== null ) {
+			console.log('has groups!')
+			console.log( groups )
+			const chartData = this.chartDataParseGroups(groups)
+			const reportChart = new ReportChart(chartData.labels, chartData.data);
+			reportChart.renderChart();
+		} else {
+			const chartData = this.chartDataParse(logs)
+			const reportChart = new ReportChart(chartData.labels, chartData.data);
+			reportChart.renderChart();
+		}
 
 	}
 
+	// Parse chart data from groups.
+	chartDataParseGroups(groups) {
+	  const labels = [];
+	  const data = [];
+
+	  for (let i = 0; i < groups.length; i++) {
+	    const group = groups[i];
+	    labels.push(group.date);
+	    data.push(parseFloat(group.total));
+	  }
+
+	  return {
+	    labels: labels,
+	    data: data
+	  };
+	}
+
+	/* Parse chart data from logs. */
 	chartDataParse(logs) {
-  const labels = [];
-  const data = [];
+	  const labels = [];
+	  const data = [];
 
-  for (let i = 0; i < logs.length; i++) {
-    labels.push(logs[i].created);
-    data.push(parseFloat(logs[i].value)); // Use parseFloat() to convert values to numbers
-  }
+	  for (let i = 0; i < logs.length; i++) {
+	    labels.push(logs[i].created);
+	    data.push(parseFloat(logs[i].value)); // Use parseFloat() to convert values to numbers
+	  }
 
-  return {
-    labels: labels,
-    data: data
-  };
-}
+	  return {
+	    labels: labels,
+	    data: data
+	  };
+	}
 
 
 	renderCountStat( figures, statComponent, targetContainer ) {

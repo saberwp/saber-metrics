@@ -145,4 +145,54 @@ class MetricLog {
 	  return $row;
   }
 
+	public function fetch_grouped($metric_id, $period, $start, $end) {
+    global $wpdb;
+
+    $interval = '';
+    switch ($period) {
+      case 'daily':
+        $interval = 'DAY';
+        break;
+      case 'weekly':
+        $interval = 'WEEK';
+        break;
+      case 'monthly':
+        $interval = 'MONTH';
+        break;
+    }
+
+    $query = $wpdb->prepare("
+      SELECT
+          COUNT(*) AS count,
+          SUM(value) AS total,
+          AVG(value) AS average,
+          DATE_FORMAT(created, '%%Y-%%m-%%d') AS date
+      FROM {$wpdb->prefix}metric_log
+      WHERE created >= %s AND created <= %s AND metric_id = %d
+      GROUP BY DATE_FORMAT(created, '%%Y-%%m-%%d')
+    ", $start, $end, $metric_id);
+
+    if ($interval) {
+      $query = $wpdb->prepare("
+          SELECT
+            COUNT(*) AS count,
+            SUM(value) AS total,
+            AVG(value) AS average,
+            DATE_FORMAT(created, '%%Y-%%m-%%d') AS date
+          FROM {$wpdb->prefix}metric_log
+          WHERE created >= %s AND created <= %s AND metric_id = %d
+          GROUP BY YEAR(created), {$interval}(created)
+      ", $start, $end, $metric_id);
+    }
+
+    $results = $wpdb->get_results($query, ARRAY_A);
+
+    return $results;
+}
+
+
+
+
+
+
 }
