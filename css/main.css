@@ -155,6 +155,21 @@ input[type=submit] {
 	margin: 0 0 2rem 0;
 }
 
+.sm-report-filters .sm-report-filter {
+	display: flex;
+	flex-direction: column;
+	gap: 0.25rem;
+}
+
+.sm-report-filters label {
+	font-weight: 600;
+	font-size: 0.95rem;
+}
+
+.sm-report-filters select {
+	min-width: 12rem;
+}
+
 /* Charts. */
 #saber-chart {
 	max-width: 32rem;
