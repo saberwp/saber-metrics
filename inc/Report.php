@@ -19,7 +19,7 @@ class Report {
     $data = array_map('sanitize_text_field', $data);
 
 		// Fetch metric logs.
-		$metric_logs = MetricLog::fetch_filtered( 13, date('Y-m-d') );
+		$metric_logs = MetricLog::fetch_filtered( $data['metric_id'], date('Y-m-d') );
 
 		// Send a JSON response using wp_send_json_success()
     $response_data = array(

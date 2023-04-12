@@ -2,12 +2,40 @@ class Reports {
 
 	init() {
 
-		// Fetch report data for default metric_id 13 and today date.
-		this.fetch()
+		const metricId = jQuery('#field-metric-id').val()
+
+		// Fetch report data for today's date.
+		this.fetch( metricId )
+
+		// Setup change event.
+		this.filterInitMetric();
 
 	}
 
-	fetch() {
+	/**
+	 * Initializes the metric filter by adding a change event listener to the metric ID select field (#field-metric-id).
+	 * The listener fetches the new data for the selected metric and re-renders the chart with the updated data.
+	 *
+	 * @return void
+	 */
+	filterInitMetric() {
+	  const metricSelect = jQuery('#sm-report-filter-metric');
+
+	  metricSelect.on('change', () => {
+			console.log('metric changed...')
+	    const metricId = metricSelect.val();
+	    this.fetch(metricId);
+	  });
+	}
+
+
+	fetch( metricId ) {
+
+		// Clear stats.
+		this.statsClear()
+
+		// Clear reports.
+		this.reportClear()
 
 		jQuery.ajax({
 		  type: 'POST',
@@ -15,7 +43,7 @@ class Reports {
 		  data: {
 		    action: 'metric_report_data_fetch',
 		    data: {
-					metric_id: 13 // Replace with the metric ID you want to fetch data for
+					metric_id: metricId // Replace with the metric ID you want to fetch data for
 				}
 		  },
 		  success: function(response) {
@@ -141,6 +169,23 @@ class Reports {
 		// Modify the elements in the statComponent markup as needed
 		statElement.find('.sm-stat-value').text(figures.average.toFixed(2));
 		statElement.find('.sm-stat-label').text('Average');
+
+	}
+
+	statsClear() {
+	  const statsRow = jQuery('.sm-stats-row');
+	  if (statsRow.children().length > 0) {
+	    statsRow.fadeOut('fast', function() {
+	      statsRow.empty();
+	      statsRow.show();
+	    });
+	  }
+	}
+
+	reportClear() {
+
+		const reportChart = new ReportChart(['A', 'B', 'C'], [100, 200, 300]);
+		reportChart.renderChart();
 
 	}
 

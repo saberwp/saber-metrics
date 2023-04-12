@@ -1,4 +1,4 @@
-<select id="field-metric-id">
+<select id="<?php echo $field_id; ?>">
 	<?php
 		$metrics = \SaberMetrics\Metric::fetch();
 		if( ! empty( $results )) {

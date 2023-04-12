@@ -7,7 +7,10 @@
 		<input id="field-id" type="hidden" value="0">
 		<div class="sm-field-group">
 			<label for="field-metric-id">Metric</label>
-			<?php require(SABER_METRICS_PATH.'templates/components/metric-selector-field.php'); ?>
+			<?php
+				$field_id = 'field-metric-id';
+				require(SABER_METRICS_PATH.'templates/components/metric-selector-field.php');
+			?>
 		</div>
 		<div class="sm-field-group">
 			<label for="field-value">Value</label>
