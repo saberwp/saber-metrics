@@ -1,9 +1,7 @@
 <section class="sm-report-filters">
 	<div class="sm-report-filter">
 		<label>Metric</label>
-		<select>
-			<option value="13">Exercise Reps</option>
-		</select>
+		<?php require(SABER_METRICS_PATH.'templates/components/metric-selector-field.php'); ?>
 	</div>
 	<div class="sm-report-filter">
 		<label>Time Period</label>

@@ -2,8 +2,10 @@ class Menu {
 
 	init() {
 
+		// Animate logo init.
 		this.logoAnimate()
 
+		// Menu click handler.
 		jQuery('#sm-menu li').click( function() {
 			console.log('click menu...')
 			const section = jQuery(this).attr('section')
@@ -13,6 +15,12 @@ class Menu {
 			navItem.addClass('sm-section-active')
 			jQuery( '.sm-section' ).hide()
 			jQuery( '#section-' + section ).show()
+
+			// Init reports if selected by user.
+			if( section === 'reports' ) {
+				const reports = new Reports()
+				reports.init()
+			}
 
 		})
 

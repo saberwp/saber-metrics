@@ -1,4 +1,4 @@
-class MyChart {
+class ReportChart {
   constructor() {
     this.canvas = document.getElementById('saber-chart');
     this.ctx = this.canvas.getContext('2d');
@@ -36,6 +36,3 @@ class MyChart {
     });
   }
 }
-
-const myChart = new MyChart();
-myChart.renderChart();
