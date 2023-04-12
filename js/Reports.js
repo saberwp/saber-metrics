@@ -39,10 +39,14 @@ class Reports {
 		// Clear reports.
 		this.reportClear()
 
+		// Parse filter values.
 		const metricId   = jQuery('#sm-report-filter-metric').val()
 		const timePeriod = jQuery('#sm-report-filter-time-period').val()
 		const grouping   = jQuery('#sm-report-filter-grouping').val()
+
+		// Initiate report data fetch.
 		this.fetch(metricId, timePeriod, grouping);
+
 	}
 
 	fetch( metricId, timePeriod, grouping ) {
@@ -102,7 +106,41 @@ class Reports {
 		return figures;
 	}
 
+	/**
+	 * Calculates total count, total value, and average value for a set of groups.
+	 *
+	 * @param {Object[]} groups - An array of group objects, each with count, total, average, and date properties.
+	 * @returns {Object} - An object with count, total, and average properties.
+	 */
+	calculateGroups(groups) {
+	  let figures = {
+	    count: 0,
+	    total: 0,
+	    average: 0
+	  };
+
+	  if (groups.length === 0) {
+	    return figures;
+	  }
+
+	  let totalCount = 0;
+	  let totalValue = 0;
+	  for (let i = 0; i < groups.length; i++) {
+	    totalCount += parseInt(groups[i].count);
+	    totalValue += parseFloat(groups[i].total);
+	  }
+
+	  figures.count = totalCount;
+	  figures.total = totalValue;
+	  figures.average = totalValue / groups.length;
+
+	  return figures;
+	}
+
 	render( data ) {
+
+		console.log('render data...')
+		console.log( data )
 
 		// Clear stats.
 		this.statsClear()
@@ -113,7 +151,19 @@ class Reports {
 		// Get logs.
 		const logs = data.logs
 		const groups = data.grouped
-		const figures = this.calculate( logs )
+
+		// Init the chart report with the labels and data created from the return results.
+		let chartData = null
+		let figures = null
+		if( data.data.grouping >= 2 && groups !== null ) {
+			console.log('rendering a group by ' + data.data.grouping)
+			chartData = this.chartDataParseGroups(groups)
+			figures = this.calculateGroups( groups )
+		} else {
+			console.log('rendering logs instead of groups')
+			chartData = this.chartDataParse(logs)
+			figures = this.calculate( logs )
+		}
 
 		// Use stat <template> markup to create the stats.
 		const statComponent = jQuery('#sm-stat-component').get(0).content.cloneNode(true);
@@ -122,18 +172,9 @@ class Reports {
 		this.renderTotalStat( figures, statComponent, targetContainer )
 		this.renderAverageStat( figures, statComponent, targetContainer )
 
-		// Init the chart report with the labels and data created from the return results.
-		if( groups !== null ) {
-			console.log('has groups!')
-			console.log( groups )
-			const chartData = this.chartDataParseGroups(groups)
-			const reportChart = new ReportChart(chartData.labels, chartData.data);
-			reportChart.renderChart();
-		} else {
-			const chartData = this.chartDataParse(logs)
-			const reportChart = new ReportChart(chartData.labels, chartData.data);
-			reportChart.renderChart();
-		}
+		// Render chart.
+		const reportChart = new ReportChart(chartData.labels, chartData.data);
+		reportChart.renderChart();
 
 	}
 

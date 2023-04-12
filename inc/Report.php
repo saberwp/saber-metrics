@@ -23,7 +23,7 @@ class Report {
 
 		// Grouped experiment.
 		$ml = new \SaberMetrics\MetricLog;
-		$grouped = $ml->fetch_grouped($data['metric_id'], 'daily', '2023-04-10', '2023-04-13');
+		$grouped = $ml->fetch_grouped($data['metric_id'], $data['grouping'], '2023-01-01', '2023-04-20');
 
 		// Send a JSON response using wp_send_json_success()
     $response_data = array(

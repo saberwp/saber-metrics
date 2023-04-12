@@ -15,7 +15,7 @@
 <?php
 
 $ml = new \SaberMetrics\MetricLog;
-$grouped = $ml->fetch_grouped(14, 'daily', '2023-04-10', '2023-04-13');
+$grouped = $ml->fetch_grouped(13, 'daily', '2023-04-12', '2023-04-13');
 
 echo '<pre>';
 var_dump( $grouped );
