@@ -22,6 +22,7 @@ class Plugin {
 		require_once(SABER_METRICS_PATH . '/inc/Database.php');
 		require_once(SABER_METRICS_PATH . '/inc/Metric.php');
 		require_once(SABER_METRICS_PATH . '/inc/MetricLog.php');
+		require_once(SABER_METRICS_PATH . '/inc/Report.php');
 
 		// Metric init.
 		$metric = new Metric();
@@ -30,6 +31,10 @@ class Plugin {
 		// Metric log init.
 		$metric_log = new MetricLog();
 		$metric_log->init();
+
+		// Reports init.
+		$report = new Report();
+		$report->init();
 
 		// Plugin activation hook.
 		register_activation_hook( __FILE__, array( $this, 'activate' ) );

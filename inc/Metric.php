@@ -26,7 +26,6 @@ class Metric {
 			$id = $this->update($data);
 		}
 
-
 		// Send a JSON response using wp_send_json_success()
     $response_data = array(
 			'code'    => 200,
@@ -35,6 +34,7 @@ class Metric {
 			'id'      => $id
     );
     wp_send_json_success($response_data);
+		
 	}
 
 	public function metric_delete_ajax() {

@@ -7,4 +7,7 @@
 	<?php require_once(SABER_METRICS_PATH . '/templates/section-reports.php'); ?>
 	<?php require_once(SABER_METRICS_PATH . '/templates/section-settings.php'); ?>
 
+	<!-- Components -->
+	<?php require_once(SABER_METRICS_PATH . '/templates/components/js-stat.php'); ?>
+
 </main>

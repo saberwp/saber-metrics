@@ -115,6 +115,10 @@ class MetricLog {
 		return $results;
 	}
 
+	/*
+	 * Fetch Filtered
+	 * @return Array of metric_log database records.
+	 */
 	public static function fetch_filtered( $metric_id, $date ) {
     global $wpdb;
     $table_name = $wpdb->prefix . 'metric_log';
