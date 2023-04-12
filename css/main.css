@@ -1,6 +1,11 @@
 main {
 	display: flex;
-	gap: 1rem;
+	gap: 0.5rem;
+	background:#FFF;
+	margin: 0 0 0 -20px;
+	padding: 0.5rem 0.5rem 0.5rem 0.5rem;
+	min-height: calc( 100vh - 32px );
+	box-sizing: border-box;
 }
 
 .sm-field-group {
@@ -15,25 +20,35 @@ main {
 
 
 nav {
-	background-color: #F2F2F2;
+	background-color: #1F2937;
+	color: #8F949B;
 	padding: 1rem;
 	min-width: 12rem;
+	border-radius: 0.5rem;
 }
 
-nav li:first-child {
-	border-top: solid 1px #CCC;
+nav ul {
+	margin: 0 0 0 0.75rem;
 }
 
 nav li {
 	cursor: pointer;
-	padding: 0.5rem 0.5rem 0.5rem 0.5rem;
-	margin: 0 0 0 0;
-	border-bottom: solid 1px #CCC;
+	padding: 0.4rem 0.3rem 0.4rem 0.3rem;
+	margin: 0 0 0.25rem 0;
+	font-size: 1rem;
+	font-weight: 700;
+	border-radius: 0.25rem;
 }
 
 nav li:hover {
-	background-color: #BBB;
+	background-color: #8F949B;
 	color: #FFF;
+}
+
+.sm-section-active,
+.sm-section-active:hover {
+	background: #FFF;
+	color: #1F2937;
 }
 
 input[type=submit] {
@@ -42,4 +57,61 @@ input[type=submit] {
 
 .sm-table-button {
 	cursor: pointer;
+}
+
+
+/* Section Content */
+.sm-section {
+	display: none;
+	background: #E9EAEB;
+	border-radius: 0.5rem;
+	padding: 1rem;
+	width: 100%;
+}
+
+.sm-section header {
+	color: #1F2937;
+	font-size: 1.1rem;
+	font-weight: 700;
+	padding: 0.5rem 0 0 0;
+	margin: 0 0 1rem 0;
+}
+
+
+
+#sm-menu {
+	width: 12rem;
+}
+
+/* Menu Header */
+
+#sm-menu header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 0.5rem;
+	margin: 0 0 2rem 0;
+}
+
+#sm-menu header svg {
+	width: 2rem;
+	height: 2rem;
+	fill: #FFF;
+}
+
+#sm-menu header h1 {
+	font-size: 1.1rem;
+	font-weight: 700;
+	color: #8F949B;
+	margin: 0;
+}
+
+/* Main Logo */
+#metric-logo {
+  transform: scale(1);
+  transition: transform 1.5s;
+}
+
+#metric-logo.scale-up {
+  transform: scale(2);
 }

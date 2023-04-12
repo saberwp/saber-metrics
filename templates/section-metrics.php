@@ -1,5 +1,8 @@
 <!-- Metric save form and table. -->
-<section id="metric-section">
+<section id="section-metrics" class="sm-section">
+
+	<header>METRICS</header>
+
 	<form id="metric-save-form">
 		<input id="field-id" type="hidden" value="0">
 		<div class="sm-field-group">
