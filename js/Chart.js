@@ -1,23 +1,29 @@
 class ReportChart {
-  constructor() {
+
+  constructor(labels, data) {
     this.canvas = document.getElementById('saber-chart');
     this.ctx = this.canvas.getContext('2d');
     this.chart = null;
+    this.labels = labels;
+		this.data = data;
   }
 
   renderChart() {
-    const data = {
-      labels: labels,
+    // If report already exists in canvas, destroy it.
+    this.clearCanvas();
+
+    const chartData = {
+      labels: this.labels,
       datasets: [{
         label: 'Metric Report',
-        data: saberMetricsChartData,
-        backgroundColor: 'rgba(255, 99, 132, 0.2)',
-        borderColor: 'rgba(255, 99, 132, 1)',
+        data: this.data,
+				backgroundColor: 'rgba(31, 41, 55, 0.2)',
+		    borderColor: 'rgba(31, 41, 55, 1)',
         borderWidth: 1
       }]
     };
 
-    const options = {
+    const chartOptions = {
       scales: {
         y: {
           beginAtZero: true
@@ -31,8 +37,21 @@ class ReportChart {
 
     this.chart = new Chart(this.ctx, {
       type: 'bar',
-      data: data,
-      options: options
+      data: chartData,
+      options: chartOptions
     });
+  }
+
+  clearCanvas() {
+    // Get the canvas element
+    const ctx = document.getElementById('saber-chart').getContext('2d');
+
+    // Check if a chart already exists on the canvas
+    const existingChart = Chart.getChart(ctx);
+
+    if (existingChart) {
+      // Destroy the existing chart if it exists
+      existingChart.destroy();
+    }
   }
 }

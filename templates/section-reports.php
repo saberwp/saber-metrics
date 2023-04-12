@@ -31,36 +31,7 @@
 	?>
 
 	<!-- Container for stats. -->
-	<section class="sm-stats-row">
-
-		<?php
-
-			// Render count stat.
-			$number = $count;
-			$label = 'Log Count';
-			require(SABER_METRICS_PATH . 'templates/components/stat.php');
-
-		?>
-
-		<?php
-
-			// Render total stat.
-			$number = $total;
-			$label = 'Total';
-			require(SABER_METRICS_PATH . 'templates/components/stat.php');
-
-		?>
-
-		<?php
-
-			// Render average stat.
-			$number = number_format( $average );
-			$label = 'Total';
-			require(SABER_METRICS_PATH . 'templates/components/stat.php');
-
-		?>
-
-	</section>
+	<section class="sm-stats-row"></section>
 
 	<!-- Chart Render -->
 	<?php
