@@ -2,29 +2,89 @@
 
 	<header>REPORTS</header>
 
-	<!-- Reporting -->
+
+	<!-- Report filters. -->
+	<?php require_once(SABER_METRICS_PATH . 'templates/components/report-filters.php'); ?>
+
 	<?php
 
-	$results = \SaberMetrics\MetricLog::fetch();
-	if( ! empty( $results )) {
+		// Make report using fetch filtered.
+		$results = \SaberMetrics\MetricLog::fetch_filtered(13, '2023-04-12');
+
+		// Calculate total.
 		$total = 0;
-		foreach ($results as $result) {
-			$total += $result->value;
+		if( ! empty( $results )) {
+			foreach ($results as $result) {
+				$total += $result->value;
+			}
 		}
-	}
 
-	$count = count( $results );
+		// Calculate count.
+		$count = count($results);
 
-	$average = 0;
-	if( $total > 0 && $count > 0 ) {
-		$average =  $total / $count;
-	}
-
-	echo '<div>';
-	echo '<h2>Count: ' . $count . '</h2>';
-	echo '<h2>Total: ' . number_format( $total ) . '</h2>';
-	echo '<h2>Average: ' . number_format( $average ) . '</h2>';
-	echo '</div>';
+		// Calculate average.
+		$average = 0;
+		if( $total > 0 && $count > 0 ) {
+			$average =  $total / $count;
+		}
 
 	?>
+
+	<!-- Container for stats. -->
+	<section class="sm-stats-row">
+
+		<?php
+
+			// Render count stat.
+			$number = $count;
+			$label = 'Log Count';
+			require(SABER_METRICS_PATH . 'templates/components/stat.php');
+
+		?>
+
+		<?php
+
+			// Render total stat.
+			$number = $total;
+			$label = 'Total';
+			require(SABER_METRICS_PATH . 'templates/components/stat.php');
+
+		?>
+
+		<?php
+
+			// Render average stat.
+			$number = number_format( $average );
+			$label = 'Total';
+			require(SABER_METRICS_PATH . 'templates/components/stat.php');
+
+		?>
+
+	</section>
+
+	<!-- Chart Render -->
+	<?php
+
+	// Make chart labels and data from results.
+	$labels = array();
+  $data = array();
+	$results = array_reverse($results); // Reverse array so last entry is on the right of the chart.
+	foreach ($results as $result) {
+		array_push($labels, $result->created);
+		array_push($data, $result->value);
+	}
+
+	// Convert to JSON.
+	$labels_json = json_encode($labels);
+  $data_json = json_encode($data);
+
+	// Output JS for Chart.js.
+	echo "<script>
+          var saberMetricsChartData = $data_json;
+          var labels = $labels_json;
+        </script>";
+
+	?>
+	<canvas id="saber-chart"></canvas>
+
 </section>

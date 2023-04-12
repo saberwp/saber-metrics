@@ -115,3 +115,47 @@ input[type=submit] {
 #metric-logo.scale-up {
   transform: scale(2);
 }
+
+/* Stats */
+.sm-stat {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	background: #1F2937;
+	border-radius: 0.25rem;
+	padding: 1rem;
+	color: #FFF;
+	gap: 1rem;
+	min-width: 8rem;
+}
+
+.sm-stat h3 {
+	margin: 0;
+	font-size: 2rem;
+	font-weight: 700;
+	color: #FFF;
+}
+
+.sm-stat h4 {
+	margin: 0;
+	font-size: 1rem;
+	font-weight: 600;
+}
+
+.sm-stats-row {
+	display: flex;
+	gap: 0.5rem;
+}
+
+/* Report filters. */
+.sm-report-filters {
+	display: flex;
+	gap: 1rem;
+	margin: 0 0 2rem 0;
+}
+
+/* Charts. */
+#saber-chart {
+	max-width: 32rem;
+	margin: 2rem 0;
+}

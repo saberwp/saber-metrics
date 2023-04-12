@@ -115,6 +115,20 @@ class MetricLog {
 		return $results;
 	}
 
+	public static function fetch_filtered( $metric_id, $date ) {
+    global $wpdb;
+    $table_name = $wpdb->prefix . 'metric_log';
+
+    $query = $wpdb->prepare(
+        "SELECT * FROM $table_name WHERE metric_id = %d AND created LIKE %s ORDER BY id DESC",
+        $metric_id,
+        $date . '%'
+    );
+
+    $results = $wpdb->get_results( $query );
+    return $results;
+	}
+
 	public function fetch_one( $id ) {
 	  global $wpdb;
 	  $table_name = $wpdb->prefix . 'metric_log';
