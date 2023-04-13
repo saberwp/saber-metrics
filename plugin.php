@@ -82,7 +82,8 @@ class Plugin {
 		wp_enqueue_script( 'saber-metrics-chart', SABER_METRICS_URL . '/js/Chart.js', array( 'saber-metrics-main' ), SABER_METRICS_VERSION, true );
 		wp_enqueue_script( 'saber-metrics-reports', SABER_METRICS_URL . '/js/Reports.js', array( 'jquery' ), SABER_METRICS_VERSION, true );
 
-		wp_enqueue_script( 'saber-metrics-menu', SABER_METRICS_URL . '/js/Menu.js', array( 'jquery', 'saber-metrics-reports' ), SABER_METRICS_VERSION, true );
+		wp_enqueue_script( 'saber-metrics-section-tracker', SABER_METRICS_URL . '/js/SectionTracker.js', array( 'jquery' ), SABER_METRICS_VERSION, true );
+		wp_enqueue_script( 'saber-metrics-menu', SABER_METRICS_URL . '/js/Menu.js', array( 'jquery', 'saber-metrics-section-tracker', 'saber-metrics-reports' ), SABER_METRICS_VERSION, true );
 
 	}
 

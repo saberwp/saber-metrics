@@ -24,8 +24,20 @@ class Menu {
 
 			// MetricLog init.
 			if( section == 'metrics' ) {
-				var metricLog = new MetricLog;
-				metricLog.init()
+
+				// Initialize List.js for the #metric-table.
+		    var options = {
+		      valueNames: ['metric-id', 'metric-title'],
+					page: 1,
+			    pagination: true
+		    };
+		    var list = new List('metric-table', options);
+
+			}
+
+			if( section == 'tracker' ) {
+				const tracker = new SectionTracker()
+				tracker.init()
 			}
 
 		})

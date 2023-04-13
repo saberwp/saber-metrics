@@ -8,6 +8,7 @@
 		<li section="tracker">Tracker</li>
 		<li section="metrics">Metrics</li>
 		<li section="reports">Reports</li>
+		<li section="docs">Docs</li>
 		<li section="settings">Settings</li>
 	</ul>
 </nav>

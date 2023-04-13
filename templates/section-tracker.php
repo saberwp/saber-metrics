@@ -24,13 +24,15 @@
 	<!-- Render table. -->
 	<table id="metric-log-table">
 		<thead>
-			<th>ID</th>
-			<th>Value</th>
-			<th>Metric</th>
-			<th>Created</th>
-			<th></th>
+			<tr>
+				<th class="sort desc" data-sort="metric-log-id">ID</th>
+				<th>Value</th>
+				<th>Metric</th>
+				<th>Created</th>
+				<th></th>
+			</tr>
 		</thead>
-		<tbody>
+		<tbody class="list">
 			<?php
 				$results = \SaberMetrics\MetricLog::fetch();
 				if( ! empty( $results )) {
@@ -50,5 +52,10 @@
 				} }
 			?>
 		</tbody>
+		<tfoot>
+			<tr>
+				<td class="pagination" colspan="5"></td>
+			</tr>
+		</tfoot>
 	</table>
 </section>
