@@ -33,6 +33,20 @@ class MetricLog {
 	      }
 	    });
 	  });
+
+		// Initialize List.js for the #metric-table.
+
+
+		console.log('table being setup with list.js...2222222.')
+    var options = {
+      valueNames: ['metric-id', 'metric-title'],
+			page: 1,
+	    pagination: true
+    };
+    var list = new List('metric-table', options);
+
+		console.log(list)
+
 	}
 
 	deleteStart() {
@@ -107,7 +121,3 @@ class MetricLog {
 	}
 
 }
-
-// Self init.
-var metricLog = new MetricLog;
-metricLog.init()

@@ -29,11 +29,12 @@
 	<!-- Render table. -->
 	<table id="metric-table">
 		<thead>
-			<th>ID</th>
-			<th>Title</th>
-			<th></th>
+			<tr>
+				<th class="sort desc" data-sort="metric-id">ID</th>
+				<th class="sort" data-sort="metric-title">Title</th>
+			</tr>
 		</thead>
-		<tbody>
+		<tbody class="list">
 			<?php
 				$results = \SaberMetrics\Metric::fetch();
 				if( ! empty( $results )) {
@@ -51,6 +52,13 @@
 				} }
 			?>
 		</tbody>
+		<tfoot>
+			<tr>
+				<td class="pagination" colspan="3"></td>
+			</tr>
+		</tfoot>
 	</table>
+
+	<div class="pagination"></div>
 
 </section>

@@ -119,19 +119,22 @@ class MetricLog {
 	 * Fetch Filtered
 	 * @return Array of metric_log database records.
 	 */
-	public static function fetch_filtered( $metric_id, $date ) {
-    global $wpdb;
-    $table_name = $wpdb->prefix . 'metric_log';
+	 public static function fetch_filtered( $metric_id, $start, $end ) {
 
-    $query = $wpdb->prepare(
-        "SELECT * FROM $table_name WHERE metric_id = %d AND created LIKE %s ORDER BY id DESC",
-        $metric_id,
-        $date . '%'
-    );
+     global $wpdb;
+     $table_name = $wpdb->prefix . 'metric_log';
 
-    $results = $wpdb->get_results( $query );
-    return $results;
-	}
+     $query = $wpdb->prepare(
+         "SELECT * FROM $table_name WHERE metric_id = %d AND created BETWEEN %s AND %s ORDER BY id DESC",
+         $metric_id,
+         $start,
+         $end
+     );
+
+     $results = $wpdb->get_results( $query );
+     return $results;
+	 }
+
 
 	public function fetch_one( $id ) {
 	  global $wpdb;

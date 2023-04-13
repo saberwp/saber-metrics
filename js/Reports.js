@@ -33,12 +33,6 @@ class Reports {
 	// Refresh the report with current filters applied.
 	refresh() {
 
-		// Clear stats.
-		this.statsClear()
-
-		// Clear reports.
-		this.reportClear()
-
 		// Parse filter values.
 		const metricId   = jQuery('#sm-report-filter-metric').val()
 		const timePeriod = jQuery('#sm-report-filter-time-period').val()
@@ -155,7 +149,7 @@ class Reports {
 		// Init the chart report with the labels and data created from the return results.
 		let chartData = null
 		let figures = null
-		if( data.data.grouping >= 2 && groups !== null ) {
+		if( data.data.grouping !== 'log' && groups !== null ) {
 			console.log('rendering a group by ' + data.data.grouping)
 			chartData = this.chartDataParseGroups(groups)
 			figures = this.calculateGroups( groups )
@@ -171,6 +165,10 @@ class Reports {
 		this.renderCountStat( figures, statComponent, targetContainer )
 		this.renderTotalStat( figures, statComponent, targetContainer )
 		this.renderAverageStat( figures, statComponent, targetContainer )
+
+		// Remove .sm-stat-new class.
+		jQuery('.sm-stat-new').removeClass('sm-stat-new')
+
 
 		// Render chart.
 		const reportChart = new ReportChart(chartData.labels, chartData.data);
@@ -211,57 +209,71 @@ class Reports {
 	  };
 	}
 
+	renderCountStat(figures, statComponent, targetContainer) {
 
-	renderCountStat( figures, statComponent, targetContainer ) {
+	  // Create a new element and set its contents to the statComponent fragment
+	  const statElement = jQuery(statComponent).contents().clone();
 
-		// Wrap the statComponent fragment in a new element
-		const statElement = jQuery('<div>').append(jQuery('#sm-stat-component').get(0).content.cloneNode(true));
+	  // Modify the elements in the statComponent markup as needed
+	  const statValue = statElement.find('.sm-stat-value');
+	  statValue.text(figures.count);
 
-		// Append the new element to the target container
-		statElement.hide().appendTo(targetContainer).fadeIn();
+	  const statLabel = statElement.find('.sm-stat-label');
+	  statLabel.text('Log Count');
 
-		// Modify the elements in the statComponent markup as needed
-		statElement.find('.sm-stat-value').text(figures.count);
-		statElement.find('.sm-stat-label').text('Log Count');
+	  // Append the new element to the target container
+	  jQuery(targetContainer).append(statElement);
+
+		// Use jQuery's fadeIn() method to make the new element visible
+	  statElement.hide().fadeIn();
 
 	}
 
-	renderTotalStat( figures, statComponent, targetContainer ) {
+	renderTotalStat(figures, statComponent, targetContainer) {
 
-		// Wrap the statComponent fragment in a new element
-		const statElement = jQuery('<div>').append(jQuery('#sm-stat-component').get(0).content.cloneNode(true));
+		// Create a new element and set its contents to the statComponent fragment
+	  const statElement = jQuery(statComponent).contents().clone();
 
-		// Append the new element to the target container
-		statElement.hide().appendTo(targetContainer).fadeIn();
+	  // Modify the elements in the statComponent markup as needed
+	  const statValue = statElement.find('.sm-stat-value');
+	  statValue.text(figures.total);
 
-		// Modify the elements in the statComponent markup as needed
-		statElement.find('.sm-stat-value').text(figures.total);
-		statElement.find('.sm-stat-label').text('Total');
+	  const statLabel = statElement.find('.sm-stat-label');
+	  statLabel.text('Total');
+
+	  // Append the new element to the target container
+	  jQuery(targetContainer).append(statElement);
+
+		// Use jQuery's fadeIn() method to make the new element visible
+	  statElement.hide().fadeIn();
 
 	}
 
 	renderAverageStat( figures, statComponent, targetContainer ) {
 
-		// Wrap the statComponent fragment in a new element
-		const statElement = jQuery('<div>').append(jQuery('#sm-stat-component').get(0).content.cloneNode(true));
+		// Create a new element and set its contents to the statComponent fragment
+	  const statElement = jQuery(statComponent).contents().clone();
 
-		// Append the new element to the target container
-		statElement.hide().appendTo(targetContainer).fadeIn();
+	  // Modify the elements in the statComponent markup as needed
+	  const statValue = statElement.find('.sm-stat-value');
+	  statValue.text( Math.round( figures.average ) );
 
-		// Modify the elements in the statComponent markup as needed
-		statElement.find('.sm-stat-value').text(figures.average.toFixed(2));
-		statElement.find('.sm-stat-label').text('Average');
+	  const statLabel = statElement.find('.sm-stat-label');
+	  statLabel.text('Average');
+
+	  // Append the new element to the target container
+	  jQuery(targetContainer).append(statElement);
+
+		// Use jQuery's fadeIn() method to make the new element visible
+	  statElement.hide().fadeIn();
 
 	}
 
 	statsClear() {
-	  const statsRow = jQuery('.sm-stats-row');
-	  if (statsRow.children().length > 0) {
-	    statsRow.fadeOut('fast', function() {
-	      statsRow.empty();
-	      statsRow.show();
-	    });
-	  }
+	  const stats = jQuery('.sm-stats-row .sm-stat:not(.sm-stat-new)');
+		console.log('stats for remove:')
+		console.log(stats)
+		stats.remove()
 	}
 
 	reportClear() {

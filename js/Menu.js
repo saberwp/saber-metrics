@@ -7,9 +7,9 @@ class Menu {
 
 		// Menu click handler.
 		jQuery('#sm-menu li').click( function() {
-			console.log('click menu...')
+
+			// Hide all the sections and then show the target section.
 			const section = jQuery(this).attr('section')
-			console.log(section)
 			const navItem = jQuery(this)
 			jQuery('#sm-menu li').removeClass('sm-section-active')
 			navItem.addClass('sm-section-active')
@@ -20,6 +20,12 @@ class Menu {
 			if( section === 'reports' ) {
 				const reports = new Reports()
 				reports.init()
+			}
+
+			// MetricLog init.
+			if( section == 'metrics' ) {
+				var metricLog = new MetricLog;
+				metricLog.init()
 			}
 
 		})

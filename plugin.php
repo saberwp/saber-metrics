@@ -72,9 +72,12 @@ class Plugin {
 		wp_enqueue_style( 'saber-metrics-main', SABER_METRICS_URL . '/css/main.css', array(), SABER_METRICS_VERSION, 'all' );
 
 		// Javascript
+
+		wp_enqueue_script( 'list-js', 'https://cdn.jsdelivr.net/npm/list.js@2.3.1/dist/list.min.js', array(), '2.3.1', true );
+
 		wp_enqueue_script( 'saber-metrics-chart-js', 'https://cdn.jsdelivr.net/npm/chart.js@3.6.2/dist/chart.min.js', array( 'jquery' ), '3.6.2', true );
 		wp_enqueue_script( 'saber-metrics-main', SABER_METRICS_URL . '/js/main.js', array( 'jquery', 'saber-metrics-chart-js' ), SABER_METRICS_VERSION, true );
-		wp_enqueue_script( 'saber-metrics-metric-log', SABER_METRICS_URL . '/js/MetricLog.js', array( 'jquery' ), SABER_METRICS_VERSION, true );
+		wp_enqueue_script( 'saber-metrics-metric-log', SABER_METRICS_URL . '/js/MetricLog.js', array( 'jquery', 'list-js' ), SABER_METRICS_VERSION, true );
 
 		wp_enqueue_script( 'saber-metrics-chart', SABER_METRICS_URL . '/js/Chart.js', array( 'saber-metrics-main' ), SABER_METRICS_VERSION, true );
 		wp_enqueue_script( 'saber-metrics-reports', SABER_METRICS_URL . '/js/Reports.js', array( 'jquery' ), SABER_METRICS_VERSION, true );
