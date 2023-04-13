@@ -54,7 +54,9 @@
 		</tbody>
 		<tfoot>
 			<tr>
-				<td class="pagination" colspan="5"></td>
+				<td colspan="5">
+					<ul class="pagination"></ul>
+				</td>
 			</tr>
 		</tfoot>
 	</table>

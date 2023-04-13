@@ -1,3 +1,9 @@
+var saberMetricsData = {
+
+	metricLogInit: 0
+
+}
+
 // Form #metric-save-form submit.
 jQuery('#metric-save-form').submit(function(event) {
   event.preventDefault(); // Block the default form submission

@@ -4,7 +4,7 @@
  * Plugin Name: Saber Metrics
  * Author: SaberWP
  * Description: Metrics tracking plugin for WordPress.
- * Version: 1.0.5
+ * Version: 1.0.6
  */
 
 

@@ -1,3 +1,9 @@
+/* CSS variables */
+:root {
+  --primary-color: #1F2937;
+	--primary-color-90: #343D49;
+}
+
 main {
 	display: flex;
 	gap: 0.5rem;
@@ -174,4 +180,96 @@ input[type=submit] {
 #saber-chart {
 	max-width: 32rem;
 	margin: 2rem 0;
+}
+
+
+
+/* Table Base */
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+	border-radius: 0.5rem;
+	background-color: var(--primary-color-90);
+	color: #FFF;
+	font-size: 0.85rem;
+	font-weight: 600;
+	min-width: 36rem;
+}
+
+/* Fix tbody spacing with extra padding on first/last. */
+table tbody tr:first-child td {
+	padding-top: 0.5rem;
+}
+
+table tbody tr:last-child td {
+	padding-bottom: 0.5rem;
+}
+
+/* Table rounding. */
+table tfoot tr td {
+	background-color: var(--primary-color);
+	border-radius: 0 0 0.5rem 0.5rem;
+}
+
+table thead {
+	border-bottom: solid 1px #FFFFFF80;
+}
+
+table thead th:first-child {
+	border-top-left-radius: 0.5rem;
+}
+
+table thead th:last-child {
+	border-top-right-radius: 0.5rem;
+}
+
+table thead th {
+	background-color: var(--primary-color);
+	font-size: 0.9rem;
+	padding: 0.5rem;
+}
+
+
+
+table tbody td {
+	font-size: 0.85rem;
+	padding: 0.25rem 0.5rem 0.25rem 0.5rem;
+	text-align: center;
+}
+
+
+/* Pagination styles. */
+table ul.pagination {
+	display: flex;
+	min-width: 8rem;
+	max-width: 12rem;
+	border-radius: 0.5rem;
+	align-items: center;
+	justify-content: center;
+	color: var(--primary-color);
+	background: #FFF;
+	gap: 0.25rem;
+	font-size: 1rem;
+	font-weight: 600;
+	margin: 1rem auto 1rem auto;
+	padding: 0.25rem 0;
+}
+
+table .pagination li {
+	min-width: 1rem;
+	margin: 0;
+	padding: 0;
+	text-align: center;
+}
+
+table .pagination li a {
+	display: block;
+	width: 100%;
+	color: var(--primary-color);
+	text-decoration: none;
+}
+
+/* Table sorting styles. */
+table thead th.sort {
+	cursor: pointer;
 }

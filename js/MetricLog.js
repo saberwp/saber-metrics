@@ -1,39 +1,62 @@
 class MetricLog {
 
+	constructor() {
+    // Store a reference to the MetricLog instance
+    this.metricLog = this;
+  }
+
 	init() {
 
 	  // Initialization events.
 		this.editStart()
 		this.deleteStart()
+		this.formSubmit()
 
-	  // Form #metric-log-save-form submit.
-	  jQuery('#metric-log-save-form').submit(function(event) {
-	    event.preventDefault(); // Block the default form submission
+		// Confirm MetricLog init is complete.
+		saberMetricsData.metricLogInit = 1
+
+	}
+
+	// Form #metric-log-save-form submit.
+	formSubmit() {
+
+	  jQuery('#metric-log-save-form').submit( (e) => {
+	    e.preventDefault(); // Block the default form submission
 	    var data = {}; // Initialize an empty object to store the form data
 	    data.value = jQuery('#metric-log-save-form #field-value').val();
 			data.metric_id = jQuery('#metric-log-save-form #field-metric-id').val();
 	    data.id = jQuery('#metric-log-save-form #field-id').val();
 	    console.log(data); // Output the data to the console for testing
 
-	    // Send the data to the server using AJAX
-	    jQuery.ajax({
-	      url: ajaxurl,
-	      method: 'POST',
-	      data: {
-	        data: data,
-	        action: 'metric_log_save'
-	      },
-	      success: function(response) {
-	        console.log('Data saved successfully!');
-	        console.log(response); // Output the response to the console for testing
-	        metricLog.addMetricLogRow(response.data)
-	      },
-	      error: function(xhr, status, error) {
-	        console.log('Error saving data: ' + error);
-	      }
-	    });
+	    this.saveRequest( data )
 	  });
 
+	}
+
+	saveRequest( data ) {
+
+		// Store a reference to the MetricLog instance
+    const metricLog = this
+
+		// Send the data to the server using AJAX
+		jQuery.ajax({
+			url: ajaxurl,
+			method: 'POST',
+			data: {
+				data: data,
+				action: 'metric_log_save'
+			},
+			success: function(response) {
+				console.log('Data saved successfully!');
+				console.log(response); // Output the response to the console for testing
+
+				// Add row to table.
+				metricLog.addMetricLogRow(response.data)
+			},
+			error: function(xhr, status, error) {
+				console.log('Error saving data: ' + error);
+			}
+		});
 	}
 
 	deleteStart() {

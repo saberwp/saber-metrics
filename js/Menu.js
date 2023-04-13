@@ -36,8 +36,15 @@ class Menu {
 			}
 
 			if( section == 'tracker' ) {
+
 				const tracker = new SectionTracker()
 				tracker.init()
+				if( ! saberMetricsData.metricLogInit ) {
+					const metricLog = new MetricLog
+					metricLog.init()
+				}
+
+
 			}
 
 		})
